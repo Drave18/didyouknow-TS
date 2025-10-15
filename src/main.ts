@@ -260,13 +260,12 @@ function filtering(){
   displayfacts(filterType);
 }
 
-// Then your event handlers just update state and call this:
 function filterByCategory(category: Category) {
   selectedCategory = category;
-  filtering();  // Reapply with new category
+  filtering();  
 }
 
 function sortBy(sort: Sorting) {
   selectedSort = sort;
-  filtering();  // Reapply with new sort
+  filtering(); 
 }
