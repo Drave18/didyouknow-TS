@@ -1,5 +1,5 @@
 //Dialog Box Functionality
-const dialog = document.getElementById('modal') ;
+export const dialog = document.getElementById('modal') ;
 const openBtn = document.getElementById('open-btn') ;
 const closeBtn = document.getElementById('close-btn') ;
 

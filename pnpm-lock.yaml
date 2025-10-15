@@ -12,6 +12,9 @@ importers:
         specifier: ^2.58.0
         version: 2.58.0
     devDependencies:
+      '@types/node':
+        specifier: ^24.6.2
+        version: 24.6.2
       '@vercel/node':
         specifier: ^5.3.24
         version: 5.3.24(rollup@4.52.3)
@@ -20,7 +23,7 @@ importers:
         version: 5.8.3
       vite:
         specifier: ^7.1.7
-        version: 7.1.7(@types/node@16.18.11)
+        version: 7.1.7(@types/node@24.6.2)
 
 packages:
 
@@ -412,8 +415,8 @@ packages:
   '@types/node@16.18.11':
     resolution: {integrity: sha512-3oJbGBUWuS6ahSnEq1eN2XrCyf4YsWI8OyCvo7c64zQJNplk3mO84t53o8lfTk+2ji59g5ycfc6qQ3fdHliHuA==}
 
-  '@types/node@24.6.0':
-    resolution: {integrity: sha512-F1CBxgqwOMc4GKJ7eY22hWhBVQuMYTtqI8L0FcszYcpYX0fzfDGpez22Xau8Mgm7O9fI+zA/TYIdq3tGWfweBA==}
+  '@types/node@24.6.2':
+    resolution: {integrity: sha512-d2L25Y4j+W3ZlNAeMKcy7yDsK425ibcAOO2t7aPTz6gNMH0z2GThtwENCDc0d/Pw9wgyRqE5Px1wkV7naz8ang==}
 
   '@types/phoenix@1.6.6':
     resolution: {integrity: sha512-PIzZZlEppgrpoT2QgbnDU+MMzuR6BbCjllj0bM70lWoejMeNJAxCchxnv7J3XFkI8MpygtRpzXrIlmWUBclP5A==}
@@ -1405,7 +1408,7 @@ snapshots:
 
   '@types/node@16.18.11': {}
 
-  '@types/node@24.6.0':
+  '@types/node@24.6.2':
     dependencies:
       undici-types: 7.13.0
 
@@ -1413,7 +1416,7 @@ snapshots:
 
   '@types/ws@8.18.1':
     dependencies:
-      '@types/node': 24.6.0
+      '@types/node': 24.6.2
 
   '@vercel/build-utils@12.1.0': {}
 
@@ -2006,7 +2009,7 @@ snapshots:
 
   v8-compile-cache-lib@3.0.1: {}
 
-  vite@7.1.7(@types/node@16.18.11):
+  vite@7.1.7(@types/node@24.6.2):
     dependencies:
       esbuild: 0.25.10
       fdir: 6.5.0(picomatch@4.0.3)
@@ -2015,7 +2018,7 @@ snapshots:
       rollup: 4.52.3
       tinyglobby: 0.2.15
     optionalDependencies:
-      '@types/node': 16.18.11
+      '@types/node': 24.6.2
       fsevents: 2.3.3
 
   webidl-conversions@3.0.1: {}

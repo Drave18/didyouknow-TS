@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="./src/styles.css">
+  <link rel="shortcut icon" href="./public/favicon.ico" type="image/x-icon">
   <title>Did you know</title>
 </head>
 
@@ -21,22 +22,22 @@
     <main>
       <aside class="categories">
         <h3>Categories</h3>
-        <button class="categories-button all">All</button>
-        <button class="categories-button technology">Technology</button>
-        <button class="categories-button science">Science</button>
-        <button class="categories-button finance">Finance</button>
-        <button class="categories-button society">Society</button>
-        <button class="categories-button entertainment">Entertainment</button>
-        <button class="categories-button health">Health</button>
-        <button class="categories-button history">History</button>
-        <button class="categories-button news">News</button>
+        <button class="categories-button all" data-category="all">All</button>
+        <button class="categories-button technology" data-category="technology">Technology</button>
+        <button class="categories-button science" data-category="science">Science</button>
+        <button class="categories-button finance" data-category="finance">Finance</button>
+        <button class="categories-button society" data-category="society">Society</button>
+        <button class="categories-button entertainment" data-category="entertainment">Entertainment</button>
+        <button class="categories-button health" data-category="health">Health</button>
+        <button class="categories-button history" data-category="history">History</button>
+        <button class="categories-button news" data-category="news">News</button>
       </aside>
       <section class="facts">
         <div class="facts-bar">
           <h2>Latest facts</h2>
           <div class="button-facts">
-            <button class="button-facts-button">Newest</button>
-            <button class="button-facts-button">Popular</button>
+            <button class="button-facts-button" data-factsort="newest">Newest</button>
+            <button class="button-facts-button" data-factsort ="popularity">Popular</button>
           </div>
         </div>
         <div class="items"></div>
@@ -71,6 +72,7 @@
           <button type="submit" class="post-btn">Post</button>
         </form>
       </dialog>
+      <script type="module" src="./src/modal.ts"></script>
       <script type="module" src="./src/main.ts"></script>
     </main>
   </div>
