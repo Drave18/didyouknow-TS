@@ -18,10 +18,63 @@ if (loader instanceof HTMLDivElement) {
   }
 }
 
+function showToast(message:string) {
+  const toast = document.createElement("div");
+  toast.className = "toast";
+  toast.textContent = message;
+  document.body.appendChild(toast);
+
+  // Trigger fade-in animation
+  setTimeout(() => {
+    toast.classList.add("show");
+  }, 10);
+
+  // Trigger fade-out animation before removing
+  setTimeout(() => {
+    toast.classList.remove("show");
+    toast.classList.add("hide");
+  }, 2700);
+
+  // Remove element after fade-out completes
+  setTimeout(() => toast.remove(), 3000);
+}
+
+
+
+function hasVoted(id: number): boolean {
+  //Ensure is boolean
+  return !!localStorage.getItem(`voted-${id}`);
+}
+
+function handleVote(id: number, type: "positive" | "negative", indexToEdit: number, votesContainer: Element | null): void {
+  if (hasVoted(id)) {
+    showToast("You have already voted 🧐");
+    return;
+  }
+
+  if (indexToEdit !== -1) {
+    const currentVotes = type === "positive" ? facts[indexToEdit].votes_positive : facts[indexToEdit].votes_negative;
+    updateFact(id, type, currentVotes);
+    
+    if (type === "positive") {
+      facts[indexToEdit].votes_positive += 1;
+    } else {
+      facts[indexToEdit].votes_negative += 1;
+    }
+    
+    const votesText = votesContainer?.querySelector("p");
+    if (votesText) {
+      votesText.textContent = String(Number(votesText.textContent) + 1);
+    }
+    
+    localStorage.setItem(`voted-${id}`, "true");
+  }
+}
+
+
 //Event delegation for avoiding redundant code
 factSection.addEventListener("click", (event: MouseEvent) => {
   const target = event.target as HTMLElement;
-
 
   const votesContainer = target.closest(".facts-item-reactions-votes");
   const factEl = target.closest(".facts-item") as HTMLElement | null;
@@ -29,39 +82,11 @@ factSection.addEventListener("click", (event: MouseEvent) => {
 
   const id = Number(factEl.dataset.id);
   const indexToEdit = facts.findIndex(fact => fact.id === id)
-  if (hasVoted(id)) {
-    alert("You have already voted")
-    return
-  };
+  
   if (target.matches(".facts-item-reactions-positive")) {
-    console.log("Pressed liked fact:", id);
-    console.log("The index to edit is: ", indexToEdit)
-    //Updating the database, local array, DOM and local storage
-    if (indexToEdit !== -1) {
-      updateFact(id, "positive", facts[indexToEdit].votes_positive)
-      facts[indexToEdit].votes_positive += 1
-      console.log(facts)
-      const votesText = votesContainer?.querySelector("p");
-      if (votesText) {
-        votesText.textContent = String(Number(votesText.textContent) + 1);
-      }
-      localStorage.setItem(`voted-${id}`, "true");
-    }
-
-
+    handleVote(id, "positive", indexToEdit, votesContainer);
   } else if (target.matches(".facts-item-negative")) {
-    console.log("Pressed negative fact:", id);
-    //Updating the database and local array
-    if (indexToEdit !== -1) {
-      updateFact(id, "negative", facts[indexToEdit].votes_negative)
-      facts[indexToEdit].votes_negative += 1
-      console.log(facts)
-      const votesText = votesContainer?.querySelector("p");
-      if (votesText) {
-        votesText.textContent = String(Number(votesText.textContent) + 1);
-      }
-      localStorage.setItem(`voted-${id}`, "true");
-    }
+    handleVote(id, "negative", indexToEdit, votesContainer);
   }
 })
 
@@ -89,7 +114,6 @@ async function loadFacts() {
         }
         const data = await response.json();
         facts = data;
-        console.log("FACTS:", data);
         displayfacts(data)
     } catch (error) {
         console.error("Error fetching facts:", error);
@@ -169,17 +193,13 @@ async function updateFact(id:number, type:"positive"|"negative", currentVotes:nu
     if(!response.ok){
       throw new Error(`HTTP error! status: ${response.status}`)
     }
-    const result = await response.json();
-    console.log("Vote updated: ", result)
+    await response.json();
 
   } catch (error) {
     console.error("Error updating vote:", error);
   }
 }
 
-function hasVoted(id: number): boolean {
-  return !!localStorage.getItem(`voted-${id}`);
-}
 
 //FORM HANDLING
 factForm.addEventListener("submit", async function (event){
@@ -223,7 +243,6 @@ async function createFact(factData:FactInsert) {
     }
 
     const result = await response.json();
-    console.log("Fact inserted correctly", result);
     return result;
   } catch (error) {
     console.error("Error inserting fact:", error);
@@ -240,7 +259,6 @@ categoriesSection.addEventListener("click", (event:MouseEvent)=>{
 
 factsBar.addEventListener("click", (event:MouseEvent)=>{
   let target = event.target as HTMLButtonElement
-  console.log(target)
   if (target.matches(".button-facts-button")){
     sortBy(target.dataset.factsort as Sorting)
   }

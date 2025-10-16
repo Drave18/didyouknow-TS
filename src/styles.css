@@ -104,11 +104,9 @@ body {
 
 .logo {
   display: inline;
-  font-size: 1.5rem;
+  font-size: 2rem;
   font-weight: 900;
-  background: -webkit-linear-gradient(#eee, #333);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+
 }
 
 header {
@@ -420,7 +418,7 @@ textarea:focus::placeholder {
 
 
 
-dialog {
+dialog{
   background-color: #1e1e1e;
   border: none;
   border-radius: 12px;
@@ -433,6 +431,7 @@ dialog {
   transition: opacity 0.3s ease, transform 0.3s ease;
 
 }
+
 
 dialog:not([open]) {
   opacity: 0;
@@ -535,4 +534,30 @@ cont;
 
 .character-counter {
   font-size: var(--font-sm);
+}
+
+/* Toast notification */
+.toast {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #626262ff;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.toast.hide {
+  opacity: 0;
+  transform: translateY(20px);
 }
